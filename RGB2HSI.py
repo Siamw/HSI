@@ -40,18 +40,16 @@ def RGB2HSI(rgb):
         for j in range(0, rs1):
             p[i][j] = ((r[i][j] - g[i][j]) + (r[i][j] - b[i][j])) * (0.5)
             q[i][j] = ((r[i][j] - g[i][j]) ** 2 + (r[i][j] - b[i][j]) * (g[i][j] - b[i][j])) ** (0.5)
-            w[i][j] = (((r[i][j] - g[i][j]) + (r[i][j] - b[i][j])) * (0.5)) / (
-                                                                               ((r[i][j] - g[i][j]) ** 2 + (r[i][j] - b[i][j]) * (g[i][j] - b[i][j])) ** (0.5))
+            w[i][j] = (((r[i][j] - g[i][j]) + (r[i][j] - b[i][j])) * (0.5)) / (((r[i][j] - g[i][j]) ** 2 + (r[i][j] - b[i][j]) * (g[i][j] - b[i][j])) ** (0.5))
                 
-                                                                               h[i][j] = numpy.arccos(w[i][j])
+            h[i][j] = numpy.arccos(w[i][j])
+            I[i][j] = (r[i][j] + g[i][j] + b[i][j]) / 3
+            S[i][j] = 1 - 3 / (r[i][j] + g[i][j] + b[i][j]) * min(r[i][j], g[i][j], b[i][j])
                                                                                
-                                                                               I[i][j] = (r[i][j] + g[i][j] + b[i][j]) / 3
-                                                                               S[i][j] = 1 - 3 / (r[i][j] + g[i][j] + b[i][j]) * min(r[i][j], g[i][j], b[i][j])
-                                                                               
-                                                                               if b[i][j] <= g[i][j]:
-                                                                                   H[i][j] = h[i][j]
-                                                                               else:
-                                                                                   H = 2*pi - h
+            if b[i][j] <= g[i][j]:
+                H[i][j] = h[i][j]
+            else:
+                H[i][j] = 2*pi - h[i][j]
 
 HSI = numpy.zeros([len(H), len(H[0]), 4])
 HSI[:, :, 1] = H;
