@@ -45,6 +45,20 @@ def HSI2RGB(h_i, b_hsi):  # H,S 성분은 im_b_hsi와 동일하다.
                 B[k][j] = i[k][j] * (1 + ((s[k][j] * math.cos(h[k][j])) / (math.cos(pi/3 - h[k][j]))));
                 R[k][j] = 3 * i[k][j] - (G[k][j] + B[k][j]);
 
+                
+            if R[k][j]>255:
+                R[k][j]=255
+            if R[k][j]<0:
+                R[k][j]=0
+            if G[k][j]>255:
+                G[k][j]=255
+            if G[k][j]<0:
+                G[k][j]=0
+            if B[k][j]>255:
+                B[k][j]=255
+            if B[k][j]<0:
+                B[k][j]=0
+                
 RGB = numpy.zeros([len(R), len(R[0]), 3])
 RGB[:, :, 0] = R;
 RGB[:, :, 1] = B;
